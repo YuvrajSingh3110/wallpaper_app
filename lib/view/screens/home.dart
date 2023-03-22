@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper_app/controller/ApiOperation.dart';
 import 'package:wallpaper_app/view/widgets/categoryBlock.dart';
 import 'package:wallpaper_app/view/widgets/searchBar.dart';
 
-class home extends StatefulWidget {
-  const home({Key? key}) : super(key: key);
+class homeScreen extends StatefulWidget {
+  const homeScreen({Key? key}) : super(key: key);
 
   @override
-  State<home> createState() => _homeState();
+  State<homeScreen> createState() => _homeScreenState();
 }
 
-class _homeState extends State<home> {
+class _homeScreenState extends State<homeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    // TODO: implement initState
+
+    ApiOperation.getTrendingWallpapers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
