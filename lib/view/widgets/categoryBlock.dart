@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class catBlock extends StatelessWidget {
-  const catBlock({Key? key}) : super(key: key);
+  String imgSrc;
+  catBlock({Key? key, required this.imgSrc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class catBlock extends StatelessWidget {
               width: 100,
               fit: BoxFit.cover,
               height: 70,
-              "https://images.pexels.com/photos/12334692/pexels-photo-12334692.jpeg"),
+             imgSrc),
         ),
         Container(
           height: 70,

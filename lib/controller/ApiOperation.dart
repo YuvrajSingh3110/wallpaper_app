@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:wallpaper_app/model/photosModel.dart';
 
 class ApiOperation {
+  static late List<photosModel> trendingWallpapers;
   static getTrendingWallpapers() async {
     await http.get(
         Uri.parse("https://api.pexels.com/v1/curated"),
@@ -9,11 +11,10 @@ class ApiOperation {
     ).then((value){
       Map<String,dynamic> jsonData = jsonDecode(value.body);
       List photos = jsonData["photos"];
-      photos.forEach((element) {
-        Map<String,dynamic> src = element["src"];
-        print(src["portrait"]);
-      });
+      for (var element in photos) {
+        trendingWallpapers.add(photosModel.apiToApp(element));
+      }
     });
-
+    return trendingWallpapers;
   }
 }

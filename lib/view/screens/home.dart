@@ -3,6 +3,8 @@ import 'package:wallpaper_app/controller/ApiOperation.dart';
 import 'package:wallpaper_app/view/widgets/categoryBlock.dart';
 import 'package:wallpaper_app/view/widgets/searchBar.dart';
 
+import '../../model/photosModel.dart';
+
 class homeScreen extends StatefulWidget {
   const homeScreen({Key? key}) : super(key: key);
 
@@ -12,12 +14,20 @@ class homeScreen extends StatefulWidget {
 
 class _homeScreenState extends State<homeScreen> {
 
+  late List<photosModel> trendingWallList;
+
+  getTrendWall() async{
+    trendingWallList = await ApiOperation.getTrendingWallpapers();
+    setState(() {
+
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     // TODO: implement initState
-
-    ApiOperation.getTrendingWallpapers();
+    getTrendWall();
   }
 
   @override
@@ -34,7 +44,7 @@ class _homeScreenState extends State<homeScreen> {
                   physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: 30,
-                    itemBuilder: ((context, index) => const catBlock()))),
+                    itemBuilder: ((context, index) => catBlock(imgSrc: trendingWallList[index].imgSrc)))),
             Expanded(
               child: SizedBox(
                 height: MediaQuery.of(context).size.height,
@@ -47,7 +57,7 @@ class _homeScreenState extends State<homeScreen> {
                       mainAxisSpacing: 3,
                       mainAxisExtent: 250
                     ),
-                    itemCount: 50,
+                    itemCount: trendingWallList.length,
                     itemBuilder: (context, index) => Container(
                           height: 500,
                           width: 30,
@@ -59,7 +69,7 @@ class _homeScreenState extends State<homeScreen> {
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
                           fit: BoxFit.cover,
-                            "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg"),
+                            trendingWallList[index].imgSrc),
                       ),
                         )),
               ),
