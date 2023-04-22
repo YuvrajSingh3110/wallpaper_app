@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper_app/view/screens/search.dart';
+import 'package:motion_toast/motion_toast.dart';
 
-class search extends StatefulWidget {
-  const search({Key? key}) : super(key: key);
+class search extends StatelessWidget {
+  search({Key? key}) : super(key: key);
 
-  @override
-  State<search> createState() => _searchState();
-}
-
-class _searchState extends State<search> {
-  TextEditingController searchController = new TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +17,19 @@ class _searchState extends State<search> {
         borderRadius: BorderRadius.circular(30),
       ),
       child: Row(children: [
-        GestureDetector(
+        InkWell(
           onTap: () {
-            if ((searchController.text).replaceAll(" ", "") == "") {
-              // Fluttertoast.showToast(
-              // msg: "Please enter city name",
-              // toastLength: Toast.LENGTH_SHORT,
-              // gravity: ToastGravity.CENTER);
+            if ((_searchController.text).replaceAll(" ", "") == "") {
+              MotionToast.error(
+                      title: const Text("Error!"),
+                      description: const Text("Please enter something"))
+                  .show(context);
             } else {
-
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          searchScreen(query: _searchController.text)));
             }
           },
           child: Container(
@@ -39,7 +40,7 @@ class _searchState extends State<search> {
         const SizedBox(width: 5),
         Expanded(
           child: TextField(
-            controller: searchController,
+            controller: _searchController,
             decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: "What do you want to search",
@@ -47,8 +48,7 @@ class _searchState extends State<search> {
                 focusedBorder: InputBorder.none,
                 disabledBorder: InputBorder.none,
                 focusedErrorBorder: InputBorder.none,
-               enabledBorder: InputBorder.none
-            ),
+                enabledBorder: InputBorder.none),
           ),
         )
       ]),

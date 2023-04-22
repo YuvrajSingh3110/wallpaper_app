@@ -3,11 +3,11 @@ class photosModel {
   late String clickedBy;
 
   photosModel({
-    required this.imgSrc,
     required this.clickedBy,
+    required this.imgSrc,
   });
 
   static apiToApp(Map<String, dynamic> photoMap){
-    return photosModel(imgSrc: (photoMap["src"])["portrait"], clickedBy: photoMap["photographer"]);
+    return photosModel(clickedBy: photoMap["photographer"], imgSrc: (photoMap["src"])["portrait"]);
   }
 }

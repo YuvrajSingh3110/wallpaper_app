@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/view/screens/category.dart';
 import 'package:wallpaper_app/view/screens/home.dart';
+import 'package:wallpaper_app/view/screens/search.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,8 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: homeScreen()
+      home: homeScreen(),
     );
   }
 }
-
